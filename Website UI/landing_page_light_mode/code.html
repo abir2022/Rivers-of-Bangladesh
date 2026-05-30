@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>River Path Explorer | Navigate the Flow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e8e8ea",
+                        "on-primary-container": "#00375a",
+                        "on-background": "#1a1c1e",
+                        "on-secondary-fixed": "#00210c",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "surface-container-low": "#f3f3f6",
+                        "outline": "#6f7883",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "on-tertiary-fixed": "#2f1500",
+                        "on-primary-fixed": "#001d33",
+                        "secondary-fixed": "#6bfe9c",
+                        "error": "#ba1a1a",
+                        "background": "#f9f9fc",
+                        "tertiary-fixed": "#ffdcc3",
+                        "inverse-on-surface": "#f0f0f3",
+                        "secondary-fixed-dim": "#4ae183",
+                        "on-secondary-container": "#00743a",
+                        "tertiary-container": "#eb8104",
+                        "primary-container": "#00a3ff",
+                        "surface-dim": "#dadadc",
+                        "primary-fixed-dim": "#98cbff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeef0",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#006d37",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#bec7d4",
+                        "surface-tint": "#00629d",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004a77",
+                        "primary": "#00629d",
+                        "surface-bright": "#f9f9fc",
+                        "on-tertiary-container": "#522900",
+                        "inverse-primary": "#98cbff",
+                        "on-secondary-fixed-variant": "#005228",
+                        "surface": "#f9f9fc",
+                        "tertiary": "#904d00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#3f4852",
+                        "secondary-container": "#6bfe9c",
+                        "inverse-surface": "#2f3133",
+                        "surface-variant": "#e2e2e5",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#cfe5ff",
+                        "on-surface": "#1a1c1e",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "lg": "40px",
+                        "sm": "12px",
+                        "margin-mobile": "16px",
+                        "md": "24px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-xl-mobile": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "body-md": ["Sora"],
+                        "label-md": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "headline-xl": ["Sora"],
+                        "label-sm": ["Sora"],
+                        "body-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-xl-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .river-gradient {
+            background: linear-gradient(135deg, #00a3ff 0%, #00629d 100%);
+        }
+        body {
+            font-family: 'Sora', sans-serif;
+            background-color: #f9f9fc;
+            color: #1a1c1e;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background transition-colors duration-300">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 sticky top-0 z-50 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<div class="flex items-center gap-base">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">River Path Explorer</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary dark:border-primary-fixed-dim pb-1" href="#">Explorer</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Blog</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Forum</a>
+</nav>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-xl pr-md py-xs rounded-full border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-label-md" placeholder="Search paths..." type="text"/>
+</div>
+<button class="p-base rounded-full hover:bg-surface-container-low transition-all active:scale-95" onclick="toggleTheme()">
+<span class="material-symbols-outlined text-primary" data-icon="light_mode">light_mode</span>
+</button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-surface-container-lowest pt-xl pb-xl px-margin-mobile md:px-margin-desktop">
+<div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-xl items-center">
+<div class="lg:col-span-6 z-10">
+<span class="inline-block px-md py-xs bg-secondary-container text-on-secondary-container rounded-full font-label-md text-label-md mb-md">
+                        New: v2.4 High-Res Mapping
+                    </span>
+<h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-background mb-md leading-tight">
+                        Navigate the Flow of <span class="text-primary">Nature's Arteries.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-xl">
+                        A state-of-the-art spatial platform for river enthusiasts and environmental scientists. Visualize terrain in 3D, track flow metrics, and share stories.
+                    </p>
+<div class="flex flex-wrap gap-md">
+<button class="px-xl py-md bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:shadow-lg transition-all active:scale-95 river-gradient">
+                            Start Exploring
+                        </button>
+<button class="px-xl py-md border border-primary text-primary rounded-xl font-label-md text-label-md hover:bg-primary-fixed transition-all active:scale-95">
+                            View API Docs
+                        </button>
+</div>
+</div>
+<div class="lg:col-span-6 relative h-[400px] md:h-[600px] flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl"></div>
+<img alt="3D River Visualization" class="w-full h-full object-cover rounded-3xl shadow-2xl z-10 border-4 border-surface-container-lowest" data-alt="A breathtaking, light-mode 3D visualization of a winding river through a lush green valley. The water is rendered with a crystalline blue transparency, reflecting a bright morning sun. The surrounding terrain features minimalist, clean topography lines in a soft gray, creating a professional and technical aesthetic. The lighting is high-key and airy, emphasizing the vibrant Lush Green vegetation and the deep River Blue of the water against a pristine white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVckhh9Go6VxOZxI8PRCtXpFe2jpytwfSEMHpRDGycI2ze3-zvor4ytCEqCDlFDvylApc0WwgVHwXzeOcPCmvxGAf-icwz-TwfGgox4klJVKUdCdip3IPE5G3asguOnKtrtM3oDqEJmgxaZnMPGC8W-xA53rY9GciH8yaD32Kx6j9qwW00GKBFX_7lYsvlfloLLR3frJSKPZW5fKctgQjYhXaaqlh6mvq3kcPdNVtCdLghkXtAij1B-gKoI83wtzplPj_eRh10WPPK"/>
+<!-- Floating Data Points -->
+<div class="absolute top-md right-0 glass-card p-md rounded-xl shadow-lg z-20 animate-bounce duration-[3000ms]">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Flow Rate</p>
+<p class="text-headline-md font-headline-md text-primary">12.4 m³/s</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Features Section -->
+<section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface">
+<div class="max-w-[1440px] mx-auto">
+<div class="flex flex-col items-center mb-xl text-center">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-sm">Tools for Modern Exploration</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Combine scientific data with community-driven insights for a deeper understanding of our waterways.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Feature 1: 3D Mapping -->
+<div class="md:col-span-2 group relative overflow-hidden rounded-3xl bg-surface-container-lowest border border-outline-variant p-lg hover:border-primary transition-all">
+<div class="flex flex-col h-full justify-between relative z-10">
+<div>
+<span class="material-symbols-outlined text-primary mb-md text-4xl" data-icon="3d_rotation">3d_rotation</span>
+<h3 class="font-headline-md text-headline-md mb-sm">Immersive 3D Mapping</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Experience riverbeds and surrounding topography with millimeter precision using our proprietary point-cloud rendering engine.</p>
+</div>
+<div class="mt-xl">
+<button class="text-primary font-label-md text-label-md flex items-center gap-xs group-hover:gap-sm transition-all">
+                                    Explore the engine <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<img alt="3D Topography" class="absolute right-0 bottom-0 w-1/2 h-2/3 object-cover opacity-20 group-hover:opacity-40 transition-opacity" data-alt="A clean, minimalist 3D topographical map showing intricate river networks in a bright, light-mode aesthetic. The map uses soft white and light gray tones for the landscape, while the river paths are highlighted in a glowing River Blue. The perspective is an isometric bird's-eye view, conveying precision and scientific clarity. The lighting is diffused and uniform, avoiding harsh shadows to maintain an airy feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgrZFPyqCuFnAQzkS8PZekjspT5Gn2br4nclhAUCw0-f0rzLgTggCJZWiSnX_T_ViX4wXYbra9-I0fm31Uzw-YBkaYVx2V7QHdHeDp0HwpwjMaW_9-2VXT0etlCVdnfxC7dCZG0yfdanrF8RmDJNUSMKHUCX1zdB6A_UWpw8sHpgA2QyhXDAoq26WRNRTfdR_sL0YD6SSBV7BCvE8sTrND6_3mPPLit1Y5iozHJCQO05NFLMt9bVH7VkBonsE5g1fEM9lNola621vi"/>
+</div>
+<!-- Feature 2: Community Stories -->
+<div class="group bg-surface-container-high rounded-3xl p-lg flex flex-col justify-between border border-transparent hover:border-outline-variant transition-all">
+<div>
+<span class="material-symbols-outlined text-tertiary mb-md text-4xl" data-icon="forum">forum</span>
+<h3 class="font-headline-md text-headline-md mb-sm">Community Stories</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Log your journeys, attach high-res photos, and share historical context with a global community of explorers.</p>
+</div>
+<div class="mt-xl flex -space-x-4">
+<img alt="User" class="w-10 h-10 rounded-full border-2 border-surface shadow-sm" data-alt="Close-up portrait of a diverse explorer in outdoor gear, smiling against a soft-focus mountain background. Bright, high-key morning lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyxpvEdcL1xoJjq8tUM6cfzzD7FMRQCJ1q_6OEpNQj2FARIw_RcxBqRqzizhDjIaYHPqBo1K1_qMhFpY338D-7K6wvew0nTlh84DDqBMearljLMmSipVykjsSVW7d4_PRuFRdmTHvmJ-t4gvYCLm6AT4B8MFmkOxTdE1bo2jcNPiMKBIUbow66LQZUd9xj4CXbxgDgI5HPNFIiL4b4G4_7fgmFoMrgYh3o37BTSOXQD9xn_HmDtpRsV13ryMH1Tpqom6HNbGcV3eua"/>
+<img alt="User" class="w-10 h-10 rounded-full border-2 border-surface shadow-sm" data-alt="Close-up portrait of a smiling woman in a blue jacket with hiking gear, natural light, outdoors setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5Yq5jsYA0-VYF17lQ7VAvQ-GpED-BcFpxu490utPj-fBtITfHRd6kehqcxb2lroVxiL5tLMFFPOlfeQUYdjcoo1EQIoDNYJGorC__o_2NKOIIxdvuMXdeXjtPOWj6mQHayJSx9o60wmpi3wjkfFcYh1VtXtqj-bt9SvIeDQs1nQmmjzikWpvQnWvSEgjThQ00HzTVNsHcBp0TC5pjqqio7l2eUHPQ4ohUEpafHcz-5fso62u2Jp20c_nxjPIIdEM8X0ylc3TOzX-g"/>
+<img alt="User" class="w-10 h-10 rounded-full border-2 border-surface shadow-sm" data-alt="Close-up portrait of an active older man with gray hair in professional trekking attire, sunny daylight lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeiq8YYf_ZSomfpstMRbOuQ9ECNrpvgtN6EDd8fBg_r4SVKSJvtF9TjbKUpweHC5UaL8Fnpt9xOypgTj8Up-8Ca9wYBmZi4jkjP-Y64SkZxamsVHVbGYAkfW4_IxCRrvrjXunLqchCMgr1wV2yik5-sdz3myxHgwV8rQ62_9YTaQ-GoMrJiZ049NI0vqEkkp-LHxvgXnv9cFtsx-lQJJ7YkJiS80Y5JwfROYh5wcS56sX-8mHeXGMwTLF7fwHP1k4pmZCVAWbUeCkX"/>
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-label-sm text-label-sm border-2 border-surface">+2k</div>
+</div>
+</div>
+<!-- Feature 3: Data Interoperability -->
+<div class="md:col-span-3 bg-on-background rounded-3xl p-lg flex flex-col md:flex-row items-center gap-xl relative overflow-hidden">
+<div class="flex-1 z-10">
+<h3 class="font-headline-md text-headline-md text-surface mb-sm">Universal Data Interoperability</h3>
+<p class="font-body-md text-body-md text-surface-variant mb-lg">Export your findings in GeoJSON, KML, or CSV formats. Seamlessly integrate with ArcGIS, QGIS, and Google Earth Pro.</p>
+<div class="flex gap-md">
+<span class="px-md py-xs bg-surface/10 text-surface rounded-lg font-label-sm text-label-sm">GeoJSON</span>
+<span class="px-md py-xs bg-surface/10 text-surface rounded-lg font-label-sm text-label-sm">KML</span>
+<span class="px-md py-xs bg-surface/10 text-surface rounded-lg font-label-sm text-label-sm">ArcGIS Sync</span>
+</div>
+</div>
+<div class="flex-1 w-full h-48 md:h-auto bg-surface/5 rounded-2xl flex items-center justify-center border border-surface/10">
+<span class="material-symbols-outlined text-surface opacity-30 text-8xl" data-icon="sync">sync</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface-container-low">
+<div class="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-lg">
+<div class="text-center">
+<p class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-xs">450+</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Mapped Rivers</p>
+</div>
+<div class="text-center">
+<p class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-xs">12TB</p>
+<p class="font-label-md text-label-md text-on-surface-variant">LiDAR Data</p>
+</div>
+<div class="text-center">
+<p class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-xs">18k</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Active Explorers</p>
+</div>
+<div class="text-center">
+<p class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-xs">99.9%</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Uptime SLA</p>
+</div>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Contextual Map Tools - Hidden on Mobile) -->
+<aside class="hidden xl:flex flex-col h-[calc(100vh-64px)] py-md px-sm fixed left-0 top-16 z-40 bg-surface-container-lowest dark:bg-surface-container-low border-r border-outline-variant dark:border-outline shadow-md dark:shadow-none w-64">
+<div class="mb-lg px-md">
+<p class="font-label-md text-label-md font-headline-md text-headline-md text-primary">Navigation</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">River Explorer Tools</p>
+</div>
+<nav class="flex flex-col gap-xs">
+<button class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-lg px-md py-sm cursor-pointer active:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span class="font-label-md text-label-md">Map Layers</span>
+</button>
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm cursor-pointer active:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="3d_rotation">3d_rotation</span>
+<span class="font-label-md text-label-md">3D View</span>
+</button>
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm cursor-pointer active:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">River Stats</span>
+</button>
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm cursor-pointer active:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label-md text-label-md">Legend</span>
+</button>
+</nav>
+<div class="mt-auto px-md">
+<div class="flex items-center gap-sm p-sm rounded-xl bg-surface-container-low">
+<img alt="User Profile" class="w-10 h-10 rounded-full" data-alt="Close-up headshot of a professional environmental researcher in high-key, airy studio lighting. Soft gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTCO_y3nvn8ylutvCUB47Dn1yrjk9g3jQe7szj_JnaiCGuqkRzXb0Gm2bwmPwZWP8h3ZTent8QXs1soCboViuc8D_a8MJtD4-1Lbx0tlGS-GU7hRupkWzd7NAwWpJqO_SuIgwELWKTPefFwmt47bdmOGWJQt8Vf4DFe_TB1bIg439LIZgBIPJPekmVvKt07x6WYOz4S0Bi5u_tbNlUaxoSkV6485UHTJiF2u22Qnq5NjzyUsO8eQE0MGfWPOX3LGPBf7RadF_gFO34"/>
+<div>
+<p class="text-label-md font-label-md">Dr. Aris Thorne</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Lead Hydrologist</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Footer Component -->
+<footer class="w-full py-lg px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-high dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline">
+<div class="flex flex-col gap-xs items-center md:items-start">
+<span class="font-headline-md text-headline-md text-primary">River Path Explorer</span>
+<p class="font-label-sm text-label-sm text-on-surface dark:text-on-surface-variant">© 2024 River Path Explorer. Scientific Data Services.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-lg">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">API Documentation</a>
+</div>
+</footer>
+<script>
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.querySelector('[data-icon="light_mode"]');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.textContent = 'dark_mode';
+            } else {
+                icon.textContent = 'light_mode';
+            }
+        }
+
+        // Lightweight scroll effect for the header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

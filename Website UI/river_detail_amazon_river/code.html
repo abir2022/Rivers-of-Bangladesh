@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RiverFlow - Amazon River</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(23, 31, 51, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .surface-float {
+            backdrop-filter: blur(20px);
+            background: rgba(45, 52, 73, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 8, 20, 0.4);
+            border: 1px solid rgba(152, 203, 255, 0.2);
+        }
+        .data-glow {
+            text-shadow: 0 0 15px rgba(152, 203, 255, 0.5);
+        }
+        .inner-stroke {
+            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+        }
+        .btn-3d {
+            background: linear-gradient(180deg, #98cbff 0%, #00629d 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .btn-3d:active {
+            transform: scale(0.98);
+            box-shadow: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-primary-fixed": "#001d33",
+                        "on-tertiary-container": "#4c2c06",
+                        "tertiary-fixed-dim": "#f0bd8b",
+                        "surface-container-high": "#222a3d",
+                        "inverse-on-surface": "#283044",
+                        "on-primary-container": "#00375a",
+                        "inverse-primary": "#00629d",
+                        "on-primary": "#003354",
+                        "secondary-fixed": "#6bfe9c",
+                        "tertiary": "#f0bd8b",
+                        "surface": "#0b1326",
+                        "surface-container-low": "#131b2e",
+                        "on-tertiary-fixed-variant": "#623f18",
+                        "primary-fixed-dim": "#98cbff",
+                        "on-surface-variant": "#bec7d4",
+                        "primary": "#98cbff",
+                        "inverse-surface": "#dae2fd",
+                        "surface-dim": "#0b1326",
+                        "surface-container-highest": "#2d3449",
+                        "surface-container": "#171f33",
+                        "on-secondary-container": "#00431f",
+                        "secondary-container": "#06bb63",
+                        "on-primary-fixed-variant": "#004a77",
+                        "surface-bright": "#31394d",
+                        "on-secondary": "#003919",
+                        "on-surface": "#dae2fd",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#00210c",
+                        "surface-variant": "#2d3449",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#98cbff",
+                        "primary-fixed": "#cfe5ff",
+                        "secondary": "#4ae183",
+                        "outline-variant": "#3f4852",
+                        "on-tertiary": "#482904",
+                        "on-secondary-fixed-variant": "#005228",
+                        "surface-container-lowest": "#060e20",
+                        "error-container": "#93000a",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#4ae183",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-background": "#dae2fd",
+                        "primary-container": "#00a3ff",
+                        "outline": "#88919d",
+                        "tertiary-container": "#c29364",
+                        "background": "#0b1326"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "xl": "64px",
+                        "margin-mobile": "16px",
+                        "lg": "40px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Sora"],
+                        "data-mono": ["Inter"],
+                        "headline-lg-mobile": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-sm bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 border-b border-white/10 dark:border-outline-variant shadow-sm dark:shadow-none">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary dark:text-primary-fixed-dim">RIVERFLOW</span>
+<div class="hidden md:flex gap-sm">
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1" href="#">Explorer</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors" href="#">Blog</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors" href="#">Forum</a>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant scale-75">search</span>
+<input class="bg-surface-container-highest/30 border border-outline-variant rounded-full pl-xl pr-md py-xs font-label-sm text-label-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all w-64" placeholder="Search rivers..." type="text"/>
+</div>
+<button class="p-xs rounded-full hover:bg-surface-container-highest/20 transition-all active:scale-95">
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- Side Navigation Bar (Metrics Controls) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 hidden md:flex flex-col p-md bg-surface-container/60 backdrop-blur-xl dark:bg-surface-container-high/60 border-r border-white/10 shadow-[0_0_20px_rgba(0,8,20,0.4)] w-[320px]">
+<div class="mb-lg">
+<h2 class="font-headline-md text-headline-md text-primary mb-xs">River Metrics</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Real-time Data Processing</p>
+</div>
+<div class="flex flex-col gap-sm flex-grow">
+<button class="flex items-center gap-sm px-md py-sm bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span class="font-label-sm text-label-sm">Map Layers</span>
+</button>
+<button class="flex items-center gap-sm px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-bright/20 rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="3d_rotation">3d_rotation</span>
+<span class="font-label-sm text-label-sm">3D View</span>
+</button>
+<button class="flex items-center gap-sm px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-bright/20 rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-sm text-label-sm">River Stats</span>
+</button>
+<button class="flex items-center gap-sm px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-bright/20 rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label-sm text-label-sm">Legend</span>
+</button>
+</div>
+<button class="mt-auto btn-3d text-on-primary py-sm px-md rounded-lg font-label-sm text-label-sm flex justify-center items-center gap-xs">
+            Export Report
+            <span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</aside>
+<main class="md:ml-[320px] pt-16">
+<!-- Hero Section -->
+<section class="relative h-[819px] w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10"></div>
+<img alt="The Amazon River" class="absolute inset-0 w-full h-full object-cover" data-alt="A cinematic, wide-angle aerial shot of the Amazon River winding through a dense, vibrant green rainforest canopy. The golden hour sunlight reflects off the water's surface, creating a shimmering path of light. The atmosphere is humid and atmospheric, with wisps of low-lying fog. The overall style is immersive and high-contrast, utilizing deep primary blues and organic secondary greens to highlight the majestic scale of the ecosystem." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk11qjjUm323WZj_WEwd-MpyZiTV8GZbURjVwlOkLcCvyAyFDD_FcfK-B-npbgOaxpR3HZOHGM8RLoaH0WwEQ1VSpVmTOBl3ERA0Ol_6aiSzWiIYVWtvWToUv_P77HW9JpwAaekIAkx2W7ure77cLhakDkkIdtyfjC4O6FxA6wexcVyi2JwghY_A0aHQ2k5Q52hp_lmvJ3tKoZiPwIpM90LvQa4tPAGt1BOhNKBS7t2g3aHoHmdCnOSpbEAE05ySCoggtHjxrGOpkI"/>
+<div class="absolute inset-0 flex flex-col justify-end p-margin-desktop z-20 pb-xl">
+<span class="font-label-sm text-label-sm text-secondary bg-on-secondary/20 backdrop-blur-md px-sm py-xs rounded-full w-fit mb-sm border border-secondary/30">SOUTH AMERICA</span>
+<h1 class="font-display-lg text-display-lg text-on-surface drop-shadow-2xl">The Amazon River</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-md">The lifeblood of the largest rainforest on Earth, carrying 20% of the world's fresh water to the ocean.</p>
+</div>
+</section>
+<!-- Technical Specs (Bento Grid) -->
+<section class="p-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="glass-panel p-md rounded-xl flex flex-col justify-between min-h-[160px] inner-stroke group hover:border-primary/40 transition-all">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Length</p>
+<h3 class="font-display-lg text-display-lg text-primary data-glow mt-xs">6,400<span class="text-headline-md">km</span></h3>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden mt-sm">
+<div class="h-full bg-primary w-[95%]"></div>
+</div>
+</div>
+<div class="glass-panel p-md rounded-xl flex flex-col justify-between min-h-[160px] inner-stroke group hover:border-secondary/40 transition-all">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Discharge</p>
+<h3 class="font-display-lg text-display-lg text-secondary data-glow mt-xs">209,000<span class="text-headline-md">m³/s</span></h3>
+</div>
+<div class="flex gap-xs items-end h-8">
+<div class="w-1 bg-secondary/30 h-1/2"></div>
+<div class="w-1 bg-secondary/50 h-3/4"></div>
+<div class="w-1 bg-secondary/70 h-1/2"></div>
+<div class="w-1 bg-secondary h-full"></div>
+<div class="w-1 bg-secondary/80 h-3/4"></div>
+<div class="w-1 bg-secondary/60 h-1/2"></div>
+</div>
+</div>
+<div class="glass-panel p-md rounded-xl flex flex-col justify-between min-h-[160px] inner-stroke group hover:border-tertiary/40 transition-all">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Basin Area</p>
+<h3 class="font-display-lg text-display-lg text-tertiary data-glow mt-xs">7.0M<span class="text-headline-md">km²</span></h3>
+</div>
+<div class="flex items-center gap-xs text-tertiary">
+<span class="material-symbols-outlined">public</span>
+<span class="font-data-mono text-data-mono">40% of South America</span>
+</div>
+</div>
+</section>
+<!-- History & Culture -->
+<section class="p-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg mb-md text-on-surface">History &amp; Indigenous Culture</h2>
+<div class="space-y-md text-on-surface-variant font-body-md leading-relaxed">
+<p>The Amazon Basin has been inhabited for at least 11,000 years. Ancient civilizations developed complex agricultural systems, including the famous <span class="text-tertiary font-bold">Terra Preta</span>, highly fertile man-made soil that still supports life today.</p>
+<p>For the thousands of indigenous communities like the Yanomami and Ticuna, the river is not just water; it is a spiritual entity, a primary highway, and a source of ancestral knowledge. Their stewardship remains the primary defense against the encroaching threats of deforestation.</p>
+</div>
+<button class="mt-lg btn-3d px-xl py-sm rounded-lg text-on-primary font-label-sm">Explore Heritage Maps</button>
+</div>
+<div class="relative aspect-square">
+<div class="absolute -inset-4 bg-primary/10 blur-3xl rounded-full"></div>
+<div class="surface-float rounded-xl overflow-hidden h-full relative border border-white/5">
+<img alt="Amazon Rainforest" class="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700" data-alt="A detailed, macro-style image of lush tropical foliage deep in the Amazonian rainforest, dripping with morning dew. The sunlight pierces through the canopy in distinct rays (God rays), illuminating the intricate textures of the leaves. The color palette is dominated by deep forest greens and earthen browns, with small, vibrant flecks of color from exotic blossoms. The mood is ancient, serene, and mysterious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBEtIzHTpg8mbUiS61YRRBfmqoJ1XcRje7MjqDgKmHSmU5IoKo8iJCOi0V9-HP3pXJSLIywZjmGNaDul7L3JCOCFYAuuLoWaH5XzgqvhAg66TXH9plB0AP5iZxLHB_qyyZKiZK08GTf06KtLU_CY7756HkWJdERAqtjPGB3YMWimPAiien72FVCRzR-BdzOxCPsR_bGPnM0j_Sfj2AgR2xC67hIvQ-mjNL2-AijytUBkjf4J6k78oFZS12wo71WnsqA_GBZEVLuXpk"/>
+<div class="absolute bottom-0 inset-x-0 p-md bg-gradient-to-t from-surface-container-highest to-transparent">
+<p class="font-label-sm text-label-sm italic text-primary-fixed-dim">"The river is our umbilical cord to the earth." — Ticuna Elder</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery Section -->
+<section class="p-margin-desktop bg-surface-container-low/30 py-xl">
+<div class="flex justify-between items-end mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Exploration Gallery</h2>
+<div class="flex gap-sm">
+<button class="p-sm glass-panel rounded-full hover:bg-surface-container-highest active:scale-90 transition-all">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="p-sm glass-panel rounded-full hover:bg-surface-container-highest active:scale-90 transition-all">
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="aspect-video glass-panel overflow-hidden rounded-lg group">
+<img alt="Pink Dolphin" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-contrast photo of a rare Amazon River Pink Dolphin breaking the water's surface at sunset. The water is a dark, glassy navy blue with golden orange reflections from the sky. The dolphin's skin has a soft, luminous texture. The style is professional wildlife photography, emphasizing the mystical and rare nature of the species." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKzO0zh23uI7im_0u59mMx2fOtwaTxGNJz7I7nKYsGomHO4r9y5pyPSMUAqQRrHePRclx7DA4sc7Go9OgFy0y2lCpCSWn_Degow2zSXl8Lfks8aIWfqTtF05NTyZLgWXILeC6rlMcKphRVAHUxEmbZFzGq-UwZVq2N9cX4sK_Sx_oCf1cQ-5DAzaBVO1R0lS0ubbmRLeEgHdqZLUdC39QBRx4YanmYM8Tfo6oYTgqN54FS0eQ10L4SStCkUPhgFNcwWfJn0Kh9pP85"/>
+</div>
+<div class="aspect-video glass-panel overflow-hidden rounded-lg group">
+<img alt="River Boat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A traditional long-tail wooden river boat navigating a narrow tributary of the Amazon, surrounded by towering trees that meet overhead like a cathedral. The lighting is moody and low-key, with bright shafts of light hitting the ripples in the water. The aesthetic is adventurous and gritty, showing the raw reality of travel in the basin." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-7Bs2l7aI77fm0s24gN0_rd4jB-MyqHkWmy18Bbaoh6j6N7Mf5_6kyEKjIOx4KHXLeUQSxRGvKfp6aTHjDS24ZUdqBF6WiVRrp2_nYPEiiS7UUW7iME1Mv_veDBmMQLCYE2P3xCdz-zvXai46akXHunEoHAMq-S902E864fzQb_YMzklUcUXny4NWaIAMfjAYa0XAzVBBILDtpeidjm4G1wZSJVy-8nryHUIIDgKnnpyxRGEnBaeh_9eCAqEDl4g-hkIqG0nD_TBp"/>
+</div>
+<div class="aspect-video glass-panel overflow-hidden rounded-lg group">
+<img alt="Macaws" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A vibrant shot of Scarlet Macaws in mid-flight across the wide expanse of the Amazon River. Their brilliant red, yellow, and blue feathers contrast sharply against the deep green background of the forest. The shot is captured with a shallow depth of field, emphasizing speed and freedom in a high-clarity scientific style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPWSivk8VNzEWo-yYOfC-Vv8dMtx21XWge1utAkpBJ1yg6Ty11q3T83h-d_eubBK8016OhH1t0-w-DJj0aQdG5-xx2sjVMT3kqCPmN9lFjSpapAbu3sDTH2lu3t0cpjftLuliraslYOO_-Ds-e5P6296jtewWH_N59l3LmZDhhwLZUj4cXOb88wjB3KY_OsXtMNLRzoG7R7pnxkt_f3-qtW9VkmeT3mefSv2PoTdZD8Zo2AmPWP6Y0pQHdQ6WF7SCcda1MyiKop6mX"/>
+</div>
+<div class="aspect-video glass-panel overflow-hidden rounded-lg group">
+<img alt="Flora" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Detailed close-up of a giant Victoria amazonica water lily pad floating on the calm surface of a blackwater lake. The intricate web of veins on the leaf is visible, highlighted by soft side-lighting. The style is scientific botanical art, using a palette of deep greens and earthy shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl7dbKlfjXDwjUS3zcdRSrhVpwtSd_qy_p6PuG8AV03i5ffxV7exBn_iBfj2vJd-2vNmxU5jg0XwxKepvxSlAxaWDloAqGbsbFTWUUA38cYBbYVn_HANqhOrvSA5dLBkD587KDOjawhviRMoN9XKOHDFqjlLDs_F6CK2qWPBSbI61qaSqRex2DNiznZHMD-kn1kqTRRqYOoQNsd5XMhUGnk149kEyvC8Q01XGFk7qsF7UuzleNU2QXGfuzgZ4O3myMeymshJprm_-n"/>
+</div>
+</div>
+</section>
+<!-- Community Section -->
+<section class="p-margin-desktop mb-xl">
+<h2 class="font-headline-lg text-headline-lg mb-lg text-on-surface">River Dialogues</h2>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+<!-- Comment Input -->
+<div class="lg:col-span-1">
+<div class="surface-float p-md rounded-xl inner-stroke">
+<h4 class="font-headline-md text-headline-md text-primary mb-md">Share Observation</h4>
+<div class="space-y-md">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-xs">Title</label>
+<input class="w-full bg-surface-container/50 border border-outline-variant rounded-lg p-sm focus:ring-1 focus:ring-primary outline-none text-on-surface transition-all" placeholder="E.g., Depth reading at Iquitos" type="text"/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-xs">Field Notes</label>
+<textarea class="w-full bg-surface-container/50 border border-outline-variant rounded-lg p-sm focus:ring-1 focus:ring-primary outline-none text-on-surface transition-all" placeholder="Record your thoughts or scientific data..." rows="4"></textarea>
+</div>
+<button class="w-full btn-3d py-sm rounded-lg font-label-sm text-on-primary">Post to Explorer Log</button>
+</div>
+</div>
+</div>
+<!-- Discussion Feed -->
+<div class="lg:col-span-2 space-y-md">
+<div class="glass-panel p-md rounded-xl border-l-4 border-l-secondary relative">
+<div class="flex items-center gap-sm mb-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-tertiary-fixed flex items-center justify-center text-on-tertiary font-bold">JD</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface flex items-center gap-xs">Dr. Julian Davies <span class="bg-tertiary text-on-tertiary text-[10px] px-xs rounded">EXPERT</span></p>
+<p class="text-[12px] text-on-surface-variant">2 hours ago</p>
+</div>
+</div>
+<p class="font-body-md text-on-surface-variant">Fascinating to see the sediment levels increasing near the Peruvian border this season. Has anyone else monitored the ph levels near the confluence with the Rio Negro lately?</p>
+<div class="mt-md flex gap-md">
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-secondary transition-colors text-label-sm">
+<span class="material-symbols-outlined text-[18px]">thumb_up</span> 24
+                            </button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors text-label-sm">
+<span class="material-symbols-outlined text-[18px]">reply</span> Reply
+                            </button>
+</div>
+</div>
+<div class="glass-panel p-md rounded-xl border-l-4 border-l-primary/30 ml-xl opacity-90">
+<div class="flex items-center gap-sm mb-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-fixed flex items-center justify-center text-on-primary font-bold text-xs">LM</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">Lara Mendez</p>
+<p class="text-[12px] text-on-surface-variant">45 mins ago</p>
+</div>
+</div>
+<p class="font-body-md text-on-surface-variant">Julian, we recorded a slight drop in alkalinity (pH 6.4) about 50km downstream from Iquitos. Data sync is pending satellite window.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Section -->
+<footer class="w-full px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-lowest dark:bg-background border-t border-outline-variant">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">RIVERFLOW</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-60">© 2024 RiverFlow Exploration. All Rights Reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Mission Statement</a>
+</div>
+</footer>
+<!-- Interactive Layer: Atmospheric Particles (JS Only for Micro-interactions) -->
+<canvas class="fixed inset-0 pointer-events-none z-30 opacity-20" id="riverParticles"></canvas>
+<script>
+        // Subtle water particle effect
+        const canvas = document.getElementById('riverParticles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for (let i = 0; i < 40; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedY: Math.random() * 0.5 + 0.2,
+                    opacity: Math.random() * 0.5
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.y -= p.speedY;
+                if (p.y < 0) p.y = canvas.height;
+                ctx.fillStyle = `rgba(152, 203, 255, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        animate();
+    </script>
+</body></html>

@@ -1,0 +1,17 @@
+{
+  "name": "rivers-of-bangladesh-workspace",
+  "version": "1.0.0",
+  "description": "Full-stack 3D Bangladesh River Path Explorer with React, Cesium, and Express/SQLite",
+  "main": "backend/server.js",
+  "type": "module",
+  "scripts": {
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
