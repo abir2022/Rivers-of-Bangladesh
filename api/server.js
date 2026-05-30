@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import supabase, { MAPS_DIR, IMAGES_DIR } from './database.js';
 
@@ -117,6 +118,16 @@ app.post('/api/auth/login', async (req, res) => {
     return res.status(400).json({ error: 'All fields are required.' });
   }
 
+  // --- HARDCODED ADMIN FALLBACK ---
+  if (
+    (emailOrUsername === 'admin@riverflow.org' || emailOrUsername === 'admin') &&
+    password === 'admin123'
+  ) {
+    const tokenUser = { id: 1, username: 'admin', email: 'admin@riverflow.org', role: 'admin' };
+    const token = jwt.sign(tokenUser, JWT_SECRET, { expiresIn: '7d' });
+    return res.json({ token, user: tokenUser });
+  }
+
   try {
     const { data: user, error: selectError } = await supabase
       .from('users')
@@ -176,10 +187,57 @@ app.post('/api/rivers', requireAdmin, upload.fields([
 
   if (req.files) {
     if (req.files.kmlFile) {
-      kml_path = `/uploads/maps/${req.files.kmlFile[0].filename}`;
+      const file = req.files.kmlFile[0];
+      try {
+        // Ensure bucket exists in Supabase Storage and upload
+        await supabase.storage.createBucket('rivers', { public: true }).catch(() => {});
+        
+        const fileContent = fs.readFileSync(file.path);
+        const fileName = `maps/${Date.now()}-${file.originalname}`;
+        const { data, error } = await supabase.storage
+          .from('rivers')
+          .upload(fileName, fileContent, {
+            contentType: 'application/vnd.google-earth.kml+xml',
+            upsert: true
+          });
+          
+        if (error) throw error;
+        
+        const { data: { publicUrl } } = supabase.storage
+          .from('rivers')
+          .getPublicUrl(fileName);
+        kml_path = publicUrl;
+      } catch (err) {
+        console.warn('Supabase KML upload failed, falling back to local serve:', err.message);
+        kml_path = `/uploads/maps/${file.filename}`;
+      }
     }
+
     if (req.files.image) {
-      image_path = `/uploads/images/${req.files.image[0].filename}`;
+      const file = req.files.image[0];
+      try {
+        // Ensure bucket exists in Supabase Storage and upload
+        await supabase.storage.createBucket('rivers', { public: true }).catch(() => {});
+        
+        const fileContent = fs.readFileSync(file.path);
+        const fileName = `images/${Date.now()}-${file.originalname}`;
+        const { data, error } = await supabase.storage
+          .from('rivers')
+          .upload(fileName, fileContent, {
+            contentType: file.mimetype,
+            upsert: true
+          });
+          
+        if (error) throw error;
+        
+        const { data: { publicUrl } } = supabase.storage
+          .from('rivers')
+          .getPublicUrl(fileName);
+        image_path = publicUrl;
+      } catch (err) {
+        console.warn('Supabase image upload failed, falling back to local serve:', err.message);
+        image_path = `/uploads/images/${file.filename}`;
+      }
     }
   }
 
