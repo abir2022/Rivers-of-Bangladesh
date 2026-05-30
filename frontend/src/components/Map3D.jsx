@@ -42,7 +42,7 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
         timeline: false,
         navigationHelpButton: false,
         navigationInstructionsInitiallyVisible: false,
-        scene3DOnly: true
+        scene3DOnly: false
       });
 
       // Enable depth testing so lines drape nicely on terrain
@@ -67,6 +67,23 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
     };
   }, [cesiumReady]);
 
+  // Toggle between 2D (Google Map view) and 3D (Google Earth view)
+  useEffect(() => {
+    if (!viewerRef.current || !cesiumReady) return;
+    const Cesium = window.Cesium;
+    const viewer = viewerRef.current;
+
+    try {
+      if (view3d) {
+        viewer.scene.morphTo3D(1.0); // smooth 1-second transition to 3D Earth
+      } else {
+        viewer.scene.morphTo2D(1.0); // smooth 1-second transition to 2D Map
+      }
+    } catch (err) {
+      console.error('Error morphing map view:', err);
+    }
+  }, [view3d, cesiumReady]);
+
   // Handle River Changes and KML Loads
   useEffect(() => {
     if (!viewerRef.current || !cesiumReady) return;
@@ -74,8 +91,9 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
     const Cesium = window.Cesium;
     const viewer = viewerRef.current;
 
-    // Clear existing datasources (old paths)
+    // Clear existing datasources (old paths) and entities
     viewer.dataSources.removeAll();
+    viewer.entities.removeAll();
 
     if (!river) {
       // If no river selected, fly to a general view of Bangladesh
@@ -90,8 +108,8 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
     setLoadingMap(true);
 
     if (kml_path) {
-      // We have an uploaded KML file! Load it dynamically
-      const kmlUrl = `${window.location.origin}${kml_path}`;
+      // We have an uploaded KML file! Load it dynamically (properly URL encoded for spaces)
+      const kmlUrl = encodeURI(`${window.location.origin}${kml_path}`);
       console.log('Loading KML map layer from:', kmlUrl);
 
       Cesium.KmlDataSource.load(kmlUrl, {
@@ -106,32 +124,61 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
         const entities = dataSource.entities.values;
         entities.forEach(entity => {
           if (entity.polyline) {
-            entity.polyline.width = 4;
+            entity.polyline.width = 5;
             entity.polyline.material = new Cesium.ColorMaterialProperty(
-              Cesium.Color.fromCssString('#98cbff').withAlpha(0.8)
+              Cesium.Color.fromCssString('#38bdf8').withAlpha(0.9)
             );
           }
         });
 
         // Beautiful zoom and fly transition into the river's KML boundaries
         viewer.zoomTo(dataSource).then(() => {
-          // Adjust camera tilt for an immersive 3D effect!
           viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
           setLoadingMap(false);
         });
       })
       .catch((err) => {
-        console.error('Error loading KML layer:', err);
-        // Fallback: Fly to lat/lng coordinates if KML fails to load
+        console.error('Error loading KML layer, falling back to coordinate pin:', err);
+        // Fallback: Add coordinate marker and fly there
+        drawCoordinateMarker(name, lat, lng);
         flyToCoords(lat, lng, zoom_level);
         setLoadingMap(false);
       });
     } else {
-      // No KML file path seeded yet, draw a placeholder coordinates marker and fly there
+      // No KML file path seeded yet, draw an elegant glowing telemetry station marker and fly there
+      drawCoordinateMarker(name, lat, lng);
       flyToCoords(lat, lng, zoom_level);
       setLoadingMap(false);
     }
   }, [river, cesiumReady]);
+
+  // Draw an elegant glowing pin & label at coordinates
+  const drawCoordinateMarker = (name, lat, lng) => {
+    if (!viewerRef.current) return;
+    const Cesium = window.Cesium;
+    const viewer = viewerRef.current;
+
+    viewer.entities.add({
+      position: Cesium.Cartesian3.fromDegrees(lng, lat),
+      point: {
+        pixelSize: 14,
+        color: Cesium.Color.fromCssString('#38bdf8'),
+        outlineColor: Cesium.Color.WHITE,
+        outlineWidth: 3,
+        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+      },
+      label: {
+        text: name,
+        font: 'bold 13px Sora, sans-serif',
+        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+        outlineWidth: 4,
+        outlineColor: Cesium.Color.fromCssString('#060e20'),
+        fillColor: Cesium.Color.WHITE,
+        pixelOffset: new Cesium.Cartesian2(0, -25),
+        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+      }
+    });
+  };
 
   // Dynamic Terrain & Layer adjustments
   useEffect(() => {

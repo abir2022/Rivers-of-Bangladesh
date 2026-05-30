@@ -107,23 +107,34 @@ const ExplorerPage = () => {
                 </span>
               </button>
 
-              {/* View 3D Mode */}
-              <button 
-                onClick={() => setView3d(!view3d)}
-                className={`w-full flex items-center justify-between p-sm rounded-lg border transition-all cursor-pointer ${
-                  view3d 
-                    ? 'bg-primary-container/30 border-primary text-primary' 
-                    : 'bg-white/5 border-white/10 text-on-surface-variant hover:bg-white/10'
-                }`}
-              >
-                <div className="flex items-center gap-sm">
-                  <span className="material-symbols-outlined">3d_rotation</span>
-                  <span className="font-label-sm text-label-sm">3D Horizon Orbit</span>
+              {/* View Mode: 2D Google Map / 3D Google Earth */}
+              <div className="space-y-xs">
+                <span className="font-data-mono text-data-mono text-[10px] text-primary/70 uppercase">Visualization Mode</span>
+                <div className="grid grid-cols-2 gap-xs bg-white/5 p-xs rounded-lg border border-white/5">
+                  <button 
+                    onClick={() => setView3d(false)}
+                    className={`py-xs text-[11px] font-label-sm rounded transition-all cursor-pointer flex items-center justify-center gap-xs ${
+                      !view3d 
+                        ? 'bg-secondary text-on-secondary shadow-sm font-bold' 
+                        : 'text-on-surface-variant hover:text-on-surface'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[16px]">map</span>
+                    Google Map (2D)
+                  </button>
+                  <button 
+                    onClick={() => setView3d(true)}
+                    className={`py-xs text-[11px] font-label-sm rounded transition-all cursor-pointer flex items-center justify-center gap-xs ${
+                      view3d 
+                        ? 'bg-primary text-on-primary-fixed shadow-sm font-bold' 
+                        : 'text-on-surface-variant hover:text-on-surface'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[16px]">public</span>
+                    Google Earth (3D)
+                  </button>
                 </div>
-                <span className="material-symbols-outlined text-[18px]">
-                  {view3d ? 'toggle_on' : 'toggle_off'}
-                </span>
-              </button>
+              </div>
             </div>
           )}
 
