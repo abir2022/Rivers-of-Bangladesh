@@ -12,6 +12,9 @@
     "build": "cd frontend && npm install && npm run build && cd .. && node -e \"const fs = require('fs'); fs.cpSync('frontend/dist', 'dist', {recursive: true});\""
   },
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "@supabase/supabase-js": "^2.43.4",
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^8.2.2",
+    "jsonwebtoken": "^9.0.2"
   }
 }
