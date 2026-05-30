@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'react-router-dom'; // Wait, let's use global axios
 import axiosInstance from 'axios';
 import { useAuth } from '../context/AuthContext.jsx';
 
