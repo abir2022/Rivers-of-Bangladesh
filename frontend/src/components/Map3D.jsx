@@ -136,10 +136,9 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
         });
 
         // Beautiful zoom and fly transition into the river's KML boundaries
-        viewer.zoomTo(dataSource).then(() => {
-          viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
-          setLoadingMap(false);
-        });
+        viewer.zoomTo(dataSource);
+        viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+        setLoadingMap(false);
       })
       .catch((err) => {
         console.error('Error loading KML layer, falling back to coordinate pin:', err);
