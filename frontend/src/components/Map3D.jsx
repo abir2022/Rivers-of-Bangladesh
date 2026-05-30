@@ -130,7 +130,7 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
           if (entity.polyline) {
             entity.polyline.width = 5;
             entity.polyline.material = new Cesium.ColorMaterialProperty(
-              Cesium.Color.fromCssString('#38bdf8').withAlpha(0.9)
+              Cesium.Color.fromCssColorString('#38bdf8').withAlpha(0.9)
             );
           }
         });
@@ -165,7 +165,7 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
       position: Cesium.Cartesian3.fromDegrees(lng, lat),
       point: {
         pixelSize: 14,
-        color: Cesium.Color.fromCssString('#38bdf8'),
+        color: Cesium.Color.fromCssColorString('#38bdf8'),
         outlineColor: Cesium.Color.WHITE,
         outlineWidth: 3,
         heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
@@ -175,7 +175,7 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
         font: 'bold 13px Sora, sans-serif',
         style: Cesium.LabelStyle.FILL_AND_OUTLINE,
         outlineWidth: 4,
-        outlineColor: Cesium.Color.fromCssString('#060e20'),
+        outlineColor: Cesium.Color.fromCssColorString('#060e20'),
         fillColor: Cesium.Color.WHITE,
         pixelOffset: new Cesium.Cartesian2(0, -25),
         heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
