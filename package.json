@@ -1,20 +1,24 @@
 {
   "name": "rivers-of-bangladesh-workspace",
   "version": "1.0.0",
-  "description": "Full-stack 3D Bangladesh River Path Explorer with React, Cesium, and Express/SQLite",
-  "main": "backend/server.js",
+  "description": "Full-stack 3D Bangladesh River Path Explorer with React, Cesium, and Supabase",
   "type": "module",
   "scripts": {
-    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "cd backend && npm run dev",
+    "install-all": "npm install && cd frontend && npm install",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:frontend\"",
+    "dev:api": "node api/server.js",
     "dev:frontend": "cd frontend && npm run dev",
-    "build": "cd frontend && npm install && npm run build && cd .. && node -e \"const fs = require('fs'); fs.cpSync('frontend/dist', 'dist', {recursive: true});\""
+    "build": "cd frontend && npm install && npm run build && cd .. && rm -rf dist && cp -r frontend/dist dist"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.43.4",
     "bcryptjs": "^2.4.3",
     "concurrently": "^8.2.2",
-    "jsonwebtoken": "^9.0.2"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1"
   }
 }

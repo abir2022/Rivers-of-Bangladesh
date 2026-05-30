@@ -632,9 +632,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'Something went wrong on the server!' });
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`✓ Server running at http://localhost:${PORT}`);
-});
+// Start Server (only in local dev, not in Vercel serverless)
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`✓ Server running at http://localhost:${PORT}`);
+  });
+}
 
 export default app;

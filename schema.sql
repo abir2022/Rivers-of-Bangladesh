@@ -85,10 +85,14 @@ CREATE TABLE IF NOT EXISTS river_comments (
 
 -- --- SEED SEED DATA ---
 
--- Seed Users (Bcrypt hashes for admin123 and user123)
+-- Enable pgcrypto for proper bcrypt password hashing (pre-installed on Supabase)
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- Seed Users (using pgcrypto's crypt+gen_salt for REAL bcrypt hashes)
+-- Admin password: admin123 | User password: user123
 INSERT INTO users (username, email, password, role) VALUES 
-('admin', 'admin@riverflow.org', '$2a$10$U5M5JzD0.WcTusU0r/T.uO30Lsh/jZq.C3wWpE0L2lG6y2e4aC5S6', 'admin'),
-('explorer_kamal', 'kamal@riverflow.org', '$2a$10$tN9vL5U3657.l82g544G/D8uO30Lsh/jZq.C3wWpE0L2lG6y2e4aC5S6', 'user')
+('admin', 'admin@riverflow.org', crypt('admin123', gen_salt('bf', 10)), 'admin'),
+('explorer_kamal', 'kamal@riverflow.org', crypt('user123', gen_salt('bf', 10)), 'user')
 ON CONFLICT DO NOTHING;
 
 -- Seed Rivers
