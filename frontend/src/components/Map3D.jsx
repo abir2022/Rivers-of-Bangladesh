@@ -29,7 +29,11 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
 
     try {
       const viewer = new Cesium.Viewer(containerRef.current, {
-        terrainProvider: layers.terrain ? Cesium.createWorldTerrain() : undefined,
+        imageryProvider: new Cesium.UrlTemplateImageryProvider({
+          url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+          credit: '© OpenStreetMap contributors, © CartoDB'
+        }),
+        terrainProvider: new Cesium.EllipsoidTerrainProvider(), // Start with safe ellipsoid provider
         animation: false,
         baseLayerPicker: false,
         fullscreenButton: false,
@@ -187,13 +191,47 @@ const Map3D = ({ river, view3d = true, layers = { terrain: true, imagery: 'satel
     const Cesium = window.Cesium;
     const viewer = viewerRef.current;
 
-    // Toggle terrain
-    if (layers.terrain) {
-      viewer.terrainProvider = Cesium.createWorldTerrain();
-    } else {
+    try {
+      // Toggle terrain safely without crashing if Ion is not authenticated
+      if (layers.terrain) {
+        viewer.terrainProvider = Cesium.createWorldTerrain ? Cesium.createWorldTerrain() : new Cesium.EllipsoidTerrainProvider();
+      } else {
+        viewer.terrainProvider = new Cesium.EllipsoidTerrainProvider();
+      }
+    } catch (err) {
+      console.warn('Cesium terrain load failed, falling back to ellipsoid:', err);
       viewer.terrainProvider = new Cesium.EllipsoidTerrainProvider();
     }
   }, [layers.terrain, cesiumReady]);
+
+  // Handle Imagery Layer Changes
+  useEffect(() => {
+    if (!viewerRef.current || !cesiumReady) return;
+    const Cesium = window.Cesium;
+    const viewer = viewerRef.current;
+
+    try {
+      // Clear existing imagery layers
+      viewer.imageryLayers.removeAll();
+
+      let provider;
+      if (layers.imagery === 'satellite') {
+        provider = new Cesium.UrlTemplateImageryProvider({
+          url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+          credit: 'Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community'
+        });
+      } else {
+        provider = new Cesium.UrlTemplateImageryProvider({
+          url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+          credit: '© OpenStreetMap contributors, © CartoDB'
+        });
+      }
+
+      viewer.imageryLayers.addImageryProvider(provider);
+    } catch (err) {
+      console.error('Error changing imagery layer:', err);
+    }
+  }, [layers.imagery, cesiumReady]);
 
   const flyToCoords = (lat, lng, zoom) => {
     if (!viewerRef.current) return;
