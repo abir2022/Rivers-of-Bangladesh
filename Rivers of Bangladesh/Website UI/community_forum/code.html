@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RiverFlow | Community Forum</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-fixed": "#001d33",
+                    "on-tertiary-container": "#4c2c06",
+                    "tertiary-fixed-dim": "#f0bd8b",
+                    "surface-container-high": "#222a3d",
+                    "inverse-on-surface": "#283044",
+                    "on-primary-container": "#00375a",
+                    "inverse-primary": "#00629d",
+                    "on-primary": "#003354",
+                    "secondary-fixed": "#6bfe9c",
+                    "tertiary": "#f0bd8b",
+                    "surface": "#0b1326",
+                    "surface-container-low": "#131b2e",
+                    "on-tertiary-fixed-variant": "#623f18",
+                    "primary-fixed-dim": "#98cbff",
+                    "on-surface-variant": "#bec7d4",
+                    "primary": "#98cbff",
+                    "inverse-surface": "#dae2fd",
+                    "surface-dim": "#0b1326",
+                    "surface-container-highest": "#2d3449",
+                    "surface-container": "#171f33",
+                    "on-secondary-container": "#00431f",
+                    "secondary-container": "#06bb63",
+                    "on-primary-fixed-variant": "#004a77",
+                    "surface-bright": "#31394d",
+                    "on-secondary": "#003919",
+                    "on-surface": "#dae2fd",
+                    "on-error": "#690005",
+                    "on-secondary-fixed": "#00210c",
+                    "surface-variant": "#2d3449",
+                    "on-error-container": "#ffdad6",
+                    "surface-tint": "#98cbff",
+                    "primary-fixed": "#cfe5ff",
+                    "secondary": "#4ae183",
+                    "outline-variant": "#3f4852",
+                    "on-tertiary": "#482904",
+                    "on-secondary-fixed-variant": "#005228",
+                    "surface-container-lowest": "#060e20",
+                    "error-container": "#93000a",
+                    "error": "#ffb4ab",
+                    "secondary-fixed-dim": "#4ae183",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-background": "#dae2fd",
+                    "primary-container": "#00a3ff",
+                    "outline": "#88919d",
+                    "tertiary-container": "#c29364",
+                    "background": "#0b1326"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "md": "24px",
+                    "gutter": "24px",
+                    "xl": "64px",
+                    "margin-mobile": "16px",
+                    "lg": "40px",
+                    "margin-desktop": "48px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Sora"],
+                    "data-mono": ["Inter"],
+                    "headline-lg-mobile": ["Sora"],
+                    "headline-md": ["Sora"],
+                    "display-lg": ["Sora"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(11, 19, 38, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bg-mesh {
+            background-image: radial-gradient(at 0% 0%, #0b1326 0, transparent 50%), 
+                              radial-gradient(at 100% 0%, #171f33 0, transparent 50%),
+                              radial-gradient(at 100% 100%, #00375a 0, transparent 50%),
+                              radial-gradient(at 0% 100%, #061727 0, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md bg-mesh min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-sm bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 border-b border-white/10 dark:border-outline-variant shadow-sm dark:shadow-none">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary dark:text-primary-fixed-dim">RIVERFLOW</span>
+<nav class="hidden md:flex gap-md ml-lg">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Explorer</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Blog</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Forum</a>
+</nav>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-high border-outline-variant rounded-full pl-xl pr-md py-xs text-body-md focus:ring-primary focus:border-primary" placeholder="Search threads..." type="text"/>
+</div>
+<button class="p-xs hover:bg-surface-container-highest/20 dark:hover:bg-surface-container-highest/30 rounded-full transition-all active:scale-95">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 flex flex-col p-md bg-surface-container/60 backdrop-blur-xl dark:bg-surface-container-high/60 w-[320px] border-r border-white/10 shadow-[0_0_20px_rgba(0,8,20,0.4)] hidden md:flex">
+<div class="mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary">River Metrics</h2>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Real-time Data</p>
+</div>
+<nav class="flex-grow space-y-xs">
+<div class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-bright/20 rounded-lg transition-all cursor-pointer">
+<span class="material-symbols-outlined text-secondary" data-icon="layers">layers</span>
+<span class="font-data-mono text-data-mono">Map Layers</span>
+</div>
+<div class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-bright/20 rounded-lg transition-all cursor-pointer">
+<span class="material-symbols-outlined text-secondary" data-icon="3d_rotation">3d_rotation</span>
+<span class="font-data-mono text-data-mono">3D View</span>
+</div>
+<div class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-bright/20 rounded-lg transition-all cursor-pointer">
+<span class="material-symbols-outlined text-secondary" data-icon="analytics">analytics</span>
+<span class="font-data-mono text-data-mono">River Stats</span>
+</div>
+<div class="flex items-center gap-sm p-sm text-on-surface-variant hover:bg-surface-bright/20 rounded-lg transition-all cursor-pointer">
+<span class="material-symbols-outlined text-secondary" data-icon="list_alt">list_alt</span>
+<span class="font-data-mono text-data-mono">Legend</span>
+</div>
+</nav>
+<button class="mt-auto bg-primary text-on-primary font-label-sm text-label-sm py-sm rounded-lg hover:brightness-110 transition-all active:scale-98 shadow-[0_2px_4px_rgba(0,0,0,0.2),inset_0_1px_rgba(255,255,255,0.2)]">
+            Export Report
+        </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-20 md:pl-[344px] px-margin-mobile md:pr-margin-desktop min-h-screen">
+<header class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-xs">Community Streams</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Connect with global explorers, hydrologists, and cartographers.</p>
+</div>
+<button class="bg-secondary text-on-secondary px-lg py-sm rounded-lg font-label-sm text-label-sm hover:brightness-110 transition-all flex items-center gap-xs w-fit">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                New Discussion
+            </button>
+</header>
+<!-- Category Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+<!-- KML Mapping Tips -->
+<div class="glass-panel p-md rounded-xl hover:bg-surface-container-highest/30 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="map">map</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">KML Mapping Tips</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm mb-md">Techniques for spatial data visualization and riverbed modeling.</p>
+<div class="flex items-center gap-sm text-on-surface-variant font-data-mono text-data-mono">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">forum</span> 1.2k</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">visibility</span> 4.5k</span>
+</div>
+</div>
+<!-- River History -->
+<div class="glass-panel p-md rounded-xl hover:bg-surface-container-highest/30 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-tertiary/20 flex items-center justify-center mb-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary" data-icon="history_edu">history_edu</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">River History</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm mb-md">Archives and historical records of changing watercourses.</p>
+<div class="flex items-center gap-sm text-on-surface-variant font-data-mono text-data-mono">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">forum</span> 842</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">visibility</span> 2.1k</span>
+</div>
+</div>
+<!-- General Discussion -->
+<div class="glass-panel p-md rounded-xl hover:bg-surface-container-highest/30 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center mb-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary" data-icon="chat_bubble">chat_bubble</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">General Discussion</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm mb-md">Casual talk about exploration gear, safety, and community news.</p>
+<div class="flex items-center gap-sm text-on-surface-variant font-data-mono text-data-mono">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">forum</span> 3.1k</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">visibility</span> 12.8k</span>
+</div>
+</div>
+</section>
+<!-- Threads Table -->
+<section class="glass-panel rounded-xl overflow-hidden mb-lg">
+<div class="p-md border-b border-outline-variant bg-surface-container-high/40 flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface">Recent Activity</h2>
+<div class="flex gap-sm">
+<button class="px-sm py-xs bg-surface-container-highest rounded text-label-sm font-label-sm text-on-surface-variant">All Threads</button>
+<button class="px-sm py-xs hover:bg-surface-container-highest transition-colors rounded text-label-sm font-label-sm text-on-surface-variant">Unread</button>
+</div>
+</div>
+<!-- Thread List -->
+<div class="divide-y divide-outline-variant">
+<!-- Thread Item 1 -->
+<div class="p-md hover:bg-surface-container-highest/20 transition-all flex flex-col md:flex-row md:items-center gap-md group">
+<div class="flex-grow">
+<div class="flex items-center gap-xs mb-xs">
+<span class="px-xs py-[2px] rounded bg-primary-container text-on-primary-container text-[10px] font-bold uppercase">KML Tips</span>
+<span class="text-on-surface-variant text-[12px] font-data-mono">#spatial-01</span>
+</div>
+<h4 class="font-body-lg text-body-lg text-on-surface group-hover:text-primary transition-colors cursor-pointer">Optimization for large dataset KML layers in 3D views?</h4>
+<div class="flex items-center gap-sm mt-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-xs">Started by <span class="text-secondary font-bold">HydroData_Finn</span></span>
+<span>• 12 minutes ago</span>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end gap-xl min-w-[320px]">
+<div class="flex flex-col items-center">
+<span class="font-data-mono text-data-mono text-on-surface">124</span>
+<span class="text-[10px] uppercase text-on-surface-variant font-bold">Replies</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="text-right hidden sm:block">
+<p class="text-on-surface font-label-sm text-label-sm">Expert_Elena</p>
+<p class="text-on-surface-variant text-[12px]">Last post 2m ago</p>
+</div>
+<img alt="Elena profile" class="w-10 h-10 rounded-full border border-primary/30" data-alt="A professional portrait of a woman in her late 30s with a focused and intelligent expression, wearing tactical outdoor gear suitable for research. The background is a blurred high-tech laboratory with soft cool-toned blue lighting. The overall aesthetic is scientific, crisp, and high-quality, mirroring a modern environmental data center environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA70OrjMgV6L1JgvKXixqoD1nn-5IpBW9ltIUm66dzov18JY4SdukEd8JBRskXOcDip9q-X8m4KvAZX0dqe1zryL7jmkwBjfeW13TFljR-5kvs9UISpebh67OlZONzokVtYiZRRzHx3NG0H4v5Rm9UFqNeuDbfUkkjGfNOgxabU-xhTKQMxYAZPcaRC26ZgVgonZLFtaxwJT8gsIDGZve-JzuvYA-ozImWzXM5hvJk1jfP6Rpvgh1nVyUh-w3Rgv1LVIKfYgp2Wndg7"/>
+</div>
+</div>
+</div>
+<!-- Thread Item 2 -->
+<div class="p-md hover:bg-surface-container-highest/20 transition-all flex flex-col md:flex-row md:items-center gap-md group">
+<div class="flex-grow">
+<div class="flex items-center gap-xs mb-xs">
+<span class="px-xs py-[2px] rounded bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase">History</span>
+</div>
+<h4 class="font-body-lg text-body-lg text-on-surface group-hover:text-tertiary transition-colors cursor-pointer">The Great Meander shift of 1924: Rare survey notes found</h4>
+<div class="flex items-center gap-sm mt-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-xs">Started by <span class="text-tertiary font-bold">RiverKeeper_Tom</span></span>
+<span>• 2 hours ago</span>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end gap-xl min-w-[320px]">
+<div class="flex flex-col items-center">
+<span class="font-data-mono text-data-mono text-on-surface">45</span>
+<span class="text-[10px] uppercase text-on-surface-variant font-bold">Replies</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="text-right hidden sm:block">
+<p class="text-on-surface font-label-sm text-label-sm">OldSchoolHydro</p>
+<p class="text-on-surface-variant text-[12px]">Last post 15m ago</p>
+</div>
+<img alt="Tom profile" class="w-10 h-10 rounded-full border border-tertiary/30" data-alt="A candid profile of a rugged, older man with grey hair and a weathered face, wearing a vintage explorer hat and canvas jacket. He is looking at an old parchment map outdoors during the golden hour. The atmosphere is warm, nostalgic, and adventurous, emphasizing high-contrast textures and a grounded, archival scientific style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn6fkQ40J9xvnwhCfrusGDufDq_pKq1VWDvcCE0Kmdkxdofheo7v8-SDkrs7u3_yU3dgukeJxfI8r69vH9423sp_MhaPkhEzMAl62vYBSKQg_HR3a9_EAQtN9kCLZ9MesQGNyG1bKq2dYeVntQldZbnDBCN2ix5J8MsbtLO0z-QkwaJRwa8CCVK1MeW1KhxR5rS5eauAW1SYWwSRxrfB1oMZWr1-UujSbMz2ykQn8VXsIFU-d_PLs-H0-_Ip_r5n19_rxiC-ZzXB1C"/>
+</div>
+</div>
+</div>
+<!-- Thread Item 3 -->
+<div class="p-md hover:bg-surface-container-highest/20 transition-all flex flex-col md:flex-row md:items-center gap-md group">
+<div class="flex-grow">
+<div class="flex items-center gap-xs mb-xs">
+<span class="px-xs py-[2px] rounded bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase">General</span>
+</div>
+<h4 class="font-body-lg text-body-lg text-on-surface group-hover:text-secondary transition-colors cursor-pointer">Best waterproof tablets for field data entry in 2024?</h4>
+<div class="flex items-center gap-sm mt-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-xs">Started by <span class="text-secondary font-bold">FieldTech_Sara</span></span>
+<span>• 5 hours ago</span>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end gap-xl min-w-[320px]">
+<div class="flex flex-col items-center">
+<span class="font-data-mono text-data-mono text-on-surface">218</span>
+<span class="text-[10px] uppercase text-on-surface-variant font-bold">Replies</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="text-right hidden sm:block">
+<p class="text-on-surface font-label-sm text-label-sm">GearGuru_Max</p>
+<p class="text-on-surface-variant text-[12px]">Last post 45m ago</p>
+</div>
+<img alt="Max profile" class="w-10 h-10 rounded-full border border-secondary/30" data-alt="A portrait of a young man with glasses and a tech-savvy appearance, wearing a sleek black hoodie. He is in a modern workspace illuminated by vibrant green and blue neon accent lights. The image conveys a sense of high-technology, innovation, and digital-first exploration, with clean sharp lines and a high-key cinematic atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOgCPwcGHA4NorLApdMX_HqGdW-Y9xze-r_BpZmixrwtt8AFoAuywS9ARqBBlV_mbcYeSZ8WcGQfu0z8A6Wsbcxqpg2tPbV3IUNWvvzj5ZN9F41PoLP_-EgzfbvSngUJG8vQLw55bmd3Bo1s2C_Nhf47eRb15LEqxd_EXOaFmV7ZFsTNBgdt1chEHy5ePKItS1rRj2AF3hmlR0Vlognbrfq2jrMIUsz-sOtne2vmC-ruedsNzCqXm41vRmjwNTmOowN7oWnFU0Dj54"/>
+</div>
+</div>
+</div>
+</div>
+<div class="p-md bg-surface-container-low/50 flex justify-center">
+<button class="text-primary font-label-sm text-label-sm flex items-center gap-xs hover:underline transition-all">
+                    Load More Discussions
+                    <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</section>
+<!-- Stats Panel -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<div class="glass-panel p-md rounded-xl flex items-center gap-md">
+<div class="text-primary"><span class="material-symbols-outlined text-[32px]">groups</span></div>
+<div>
+<p class="text-on-surface font-headline-md text-headline-md">12,402</p>
+<p class="text-on-surface-variant text-[10px] uppercase font-bold">Active Members</p>
+</div>
+</div>
+<div class="glass-panel p-md rounded-xl flex items-center gap-md">
+<div class="text-secondary"><span class="material-symbols-outlined text-[32px]">water_drop</span></div>
+<div>
+<p class="text-on-surface font-headline-md text-headline-md">1.2M</p>
+<p class="text-on-surface-variant text-[10px] uppercase font-bold">Data Points Shared</p>
+</div>
+</div>
+<div class="glass-panel p-md rounded-xl flex items-center gap-md">
+<div class="text-tertiary"><span class="material-symbols-outlined text-[32px]">map</span></div>
+<div>
+<p class="text-on-surface font-headline-md text-headline-md">8,291</p>
+<p class="text-on-surface-variant text-[10px] uppercase font-bold">KML Overlays</p>
+</div>
+</div>
+<div class="glass-panel p-md rounded-xl flex items-center gap-md">
+<div class="text-primary"><span class="material-symbols-outlined text-[32px]">verified</span></div>
+<div>
+<p class="text-on-surface font-headline-md text-headline-md">452</p>
+<p class="text-on-surface-variant text-[10px] uppercase font-bold">Expert Badges</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-lowest dark:bg-background border-t border-outline-variant">
+<div class="flex flex-col gap-xs items-center md:items-start">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">RIVERFLOW</span>
+<p class="text-on-surface-variant font-label-sm text-label-sm">© 2024 RiverFlow Exploration. All Rights Reserved.</p>
+</div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm" href="#">Contact Support</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-label-sm text-label-sm" href="#">Mission Statement</a>
+</div>
+</footer>
+<!-- Floating Action Button for Mobile -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-xl z-50 active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<script>
+        // Micro-interaction for hover states on glass panels
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('mouseenter', () => {
+                panel.style.transform = 'translateY(-2px)';
+            });
+            panel.addEventListener('mouseleave', () => {
+                panel.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>
