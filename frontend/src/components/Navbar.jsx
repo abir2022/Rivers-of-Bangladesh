@@ -6,6 +6,7 @@ const Navbar = () => {
   const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -16,6 +17,16 @@ const Navbar = () => {
   return (
     <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-sm bg-surface/80 backdrop-blur-md border-b border-white/10 shadow-sm dark:shadow-none h-16">
       <div className="flex items-center gap-md">
+        {/* Mobile Hamburger Button */}
+        <button 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden text-on-surface hover:text-primary transition-colors cursor-pointer flex items-center"
+        >
+          <span className="material-symbols-outlined text-[28px]">
+            {mobileMenuOpen ? 'close' : 'menu'}
+          </span>
+        </button>
+
         <Link to="/" className="font-headline-md text-headline-md font-bold tracking-tight text-primary">
           RIVERFLOW
         </Link>
@@ -58,6 +69,48 @@ const Navbar = () => {
           </NavLink>
         </nav>
       </div>
+
+      {/* Mobile Menu Dropdown Panel */}
+      {mobileMenuOpen && (
+        <div className="absolute top-16 left-0 w-full bg-surface/95 backdrop-blur-xl border-b border-white/10 flex flex-col p-md gap-xs z-45 md:hidden glass-panel no-tilt rounded-none border-x-0 border-t-0">
+          <NavLink 
+            to="/explorer" 
+            onClick={() => setMobileMenuOpen(false)}
+            className={({ isActive }) => 
+              `font-body-md text-sm py-sm px-md rounded-lg flex items-center gap-sm transition-all ${
+                isActive ? "text-primary bg-primary-container/20 font-bold" : "text-on-surface-variant hover:text-primary hover:bg-white/5"
+              }`
+            }
+          >
+            <span className="material-symbols-outlined text-[20px]">explore</span>
+            Explorer Map
+          </NavLink>
+          <NavLink 
+            to="/blog" 
+            onClick={() => setMobileMenuOpen(false)}
+            className={({ isActive }) => 
+              `font-body-md text-sm py-sm px-md rounded-lg flex items-center gap-sm transition-all ${
+                isActive ? "text-primary bg-primary-container/20 font-bold" : "text-on-surface-variant hover:text-primary hover:bg-white/5"
+              }`
+            }
+          >
+            <span className="material-symbols-outlined text-[20px]">rss_feed</span>
+            Blog Chronicles
+          </NavLink>
+          <NavLink 
+            to="/forum" 
+            onClick={() => setMobileMenuOpen(false)}
+            className={({ isActive }) => 
+              `font-body-md text-sm py-sm px-md rounded-lg flex items-center gap-sm transition-all ${
+                isActive ? "text-primary bg-primary-container/20 font-bold" : "text-on-surface-variant hover:text-primary hover:bg-white/5"
+              }`
+            }
+          >
+            <span className="material-symbols-outlined text-[20px]">forum</span>
+            Community Forum
+          </NavLink>
+        </div>
+      )}
 
       <div className="flex items-center gap-base">
         {user ? (

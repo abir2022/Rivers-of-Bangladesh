@@ -181,18 +181,18 @@ const AdminDashboardPage = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh-64px)] pt-16 bg-background overflow-hidden text-on-surface">
+    <div className="flex flex-col md:flex-row h-[calc(100vh-64px)] pt-16 bg-background overflow-hidden text-on-surface">
       
       {/* Side Admin Panel Controller */}
-      <aside className="w-[280px] shrink-0 h-full p-md bg-surface-container/60 backdrop-blur-xl border-r border-white/10 flex flex-col gap-sm overflow-y-auto">
-        <div className="mb-md">
-          <h2 className="font-headline-md text-headline-md font-bold text-primary">Admin Center</h2>
-          <p className="font-data-mono text-data-mono text-xs text-secondary mt-xs uppercase tracking-widest">Authority Terminal</p>
+      <aside className="w-full md:w-[280px] shrink-0 p-md bg-surface-container/60 backdrop-blur-xl border-b md:border-b-0 md:border-r border-white/10 flex flex-row md:flex-col gap-sm overflow-x-auto md:overflow-y-auto items-center md:items-stretch">
+        <div className="mb-0 md:mb-md mr-md md:mr-0 shrink-0">
+          <h2 className="font-headline-md text-sm md:text-headline-md font-bold text-primary">Admin Center</h2>
+          <p className="font-data-mono text-data-mono text-[9px] md:text-xs text-secondary mt-xs uppercase tracking-widest hidden sm:block">Authority Terminal</p>
         </div>
         
         <button 
           onClick={() => setActivePanel('analytics')}
-          className={`w-full flex items-center gap-xs px-md py-sm rounded-lg border text-xs font-label-sm transition-all cursor-pointer ${
+          className={`w-auto md:w-full shrink-0 flex items-center gap-xs px-md py-sm rounded-lg border text-xs font-label-sm transition-all cursor-pointer ${
             activePanel === 'analytics' 
               ? 'bg-primary-container/20 border-primary text-primary font-bold shadow-sm' 
               : 'bg-white/5 border-white/5 text-on-surface-variant hover:bg-white/10 hover:text-on-surface'
@@ -204,7 +204,7 @@ const AdminDashboardPage = () => {
 
         <button 
           onClick={() => setActivePanel('rivers')}
-          className={`w-full flex items-center gap-xs px-md py-sm rounded-lg border text-xs font-label-sm transition-all cursor-pointer ${
+          className={`w-auto md:w-full shrink-0 flex items-center gap-xs px-md py-sm rounded-lg border text-xs font-label-sm transition-all cursor-pointer ${
             activePanel === 'rivers' 
               ? 'bg-primary-container/20 border-primary text-primary font-bold shadow-sm' 
               : 'bg-white/5 border-white/5 text-on-surface-variant hover:bg-white/10 hover:text-on-surface'
@@ -216,7 +216,7 @@ const AdminDashboardPage = () => {
 
         <button 
           onClick={() => setActivePanel('blogs')}
-          className={`w-full flex items-center gap-xs px-md py-sm rounded-lg border text-xs font-label-sm transition-all cursor-pointer ${
+          className={`w-auto md:w-full shrink-0 flex items-center gap-xs px-md py-sm rounded-lg border text-xs font-label-sm transition-all cursor-pointer ${
             activePanel === 'blogs' 
               ? 'bg-primary-container/20 border-primary text-primary font-bold shadow-sm' 
               : 'bg-white/5 border-white/5 text-on-surface-variant hover:bg-white/10 hover:text-on-surface'
@@ -228,7 +228,7 @@ const AdminDashboardPage = () => {
 
         <button 
           onClick={() => setActivePanel('users')}
-          className={`w-full flex items-center gap-xs px-md py-sm rounded-lg border text-xs font-label-sm transition-all cursor-pointer ${
+          className={`w-auto md:w-full shrink-0 flex items-center gap-xs px-md py-sm rounded-lg border text-xs font-label-sm transition-all cursor-pointer ${
             activePanel === 'users' 
               ? 'bg-primary-container/20 border-primary text-primary font-bold shadow-sm' 
               : 'bg-white/5 border-white/5 text-on-surface-variant hover:bg-white/10 hover:text-on-surface'

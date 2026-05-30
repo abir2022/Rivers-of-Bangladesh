@@ -40,10 +40,10 @@ const ExplorerPage = () => {
   }, []);
 
   return (
-    <div className="flex h-[calc(100vh-64px)] pt-16 overflow-hidden bg-background">
+    <div className="flex flex-col-reverse md:flex-row h-[calc(100vh-64px)] pt-16 overflow-hidden bg-background">
       
-      {/* Side Navigation Control Dashboard (320px) */}
-      <aside className="w-[320px] shrink-0 h-full flex flex-col p-md bg-surface-container/60 backdrop-blur-xl border-r border-white/10 shadow-[0_0_20px_rgba(0,8,20,0.4)] z-10 overflow-y-auto">
+      {/* Side Navigation Control Dashboard (Desktop: 320px wide left sidebar, Mobile: 45vh high bottom overlay dashboard) */}
+      <aside className="w-full md:w-[320px] h-[45vh] md:h-full shrink-0 flex flex-col p-md bg-surface-container/60 backdrop-blur-xl border-t md:border-t-0 md:border-r border-white/10 shadow-[0_0_20px_rgba(0,8,20,0.4)] z-10 overflow-y-auto">
         <div className="mb-lg">
           <h2 className="font-headline-md text-headline-md text-primary font-bold">Explorer Terminal</h2>
           <p className="font-data-mono text-data-mono text-secondary text-xs uppercase tracking-widest mt-xs">Real-time Data Stream</p>
