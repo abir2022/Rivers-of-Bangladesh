@@ -1,3 +1,5 @@
+![Rivers of Bangladesh](assets/banner.svg)
+
 # Rivers of Bangladesh — 3D map, history and community
 
 An interactive map of the rivers that shape Bangladesh: 3D terrain with river paths, the history behind each one, and a community layer — blog posts, discussion and an admin dashboard for maintaining it.
