@@ -21,12 +21,25 @@ River data in Bangladesh usually exists in two incompatible forms: serious geosp
 - **Admin dashboard** — manage rivers, posts and threads without editing code.
 - **Responsive layout** — the globe is usable on a phone, not just a desktop.
 
-## Structure
+## Repository layout
 
 ```
-public/            static assets and map data
-src/               React app (map, river pages, blog, forum, auth, admin)
+README.md
+River Files/Mahananda Basin.kml
+River Files/Nilphamari District.kml
+River Files/Nilphamari District.kmz
+River Files/NilphamariPaths.json
+River Files/view-mahananda-river-bangladesh-with-boats_595440-1477.jpg
+Website UI/admin_dashboard/code.html
+Website UI/admin_dashboard/screen.png
+Website UI/community_forum/code.html
+Website UI/community_forum/screen.png
+Website UI/interactive_map_explorer/code.html
+Website UI/interactive_map_explorer/screen.png
+Website UI/interactive_map_explorer_animated/code.html
+Website UI/interactive_map_explorer_animated/screen.png
 ```
+
 
 ## Run it
 
